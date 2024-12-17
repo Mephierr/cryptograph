@@ -1,6 +1,6 @@
-#ifndef BUTTON_UI_HPP
-#define BUTTON_UI_HPP
-
+#ifndef P_UI_HPP
+#define P_UI_HPP
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
@@ -44,4 +44,4 @@ private:
     Button* button; // Указатель на кнопку
 };
 
-#endif // BUTTON_UI_HPP
+#endif 

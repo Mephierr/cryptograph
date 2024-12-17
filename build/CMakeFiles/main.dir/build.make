@@ -124,6 +124,9 @@ main: CMakeFiles/main.dir/main.cpp.o
 main: CMakeFiles/main.dir/P_UI.cpp.o
 main: CMakeFiles/main.dir/XOR.cpp.o
 main: CMakeFiles/main.dir/build.make
+main: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
+main: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
+main: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
 main: CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mephi/Work/cryptograph/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)

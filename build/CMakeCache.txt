@@ -224,6 +224,9 @@ Project_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/home/mephi/Work/cryptograph
 
+//The directory containing a CMake configuration file for SFML.
+SFML_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/SFML
+
 //Value Computed by CMake
 cryptograph_BINARY_DIR:STATIC=/home/mephi/Work/cryptograph/build
 

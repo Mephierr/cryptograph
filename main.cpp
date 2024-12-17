@@ -4,7 +4,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Пример UI на SFML с интерфейсами");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Пример UI на SFML");
     UI ui;
 
     while (window.isOpen()) {
