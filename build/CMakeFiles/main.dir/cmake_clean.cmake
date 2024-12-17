@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/main.dir/P_UI.cpp.o"
+  "CMakeFiles/main.dir/P_UI.cpp.o.d"
+  "CMakeFiles/main.dir/XOR.cpp.o"
+  "CMakeFiles/main.dir/XOR.cpp.o.d"
   "CMakeFiles/main.dir/main.cpp.o"
   "CMakeFiles/main.dir/main.cpp.o.d"
   "main"

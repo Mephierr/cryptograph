@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/mephi/Work/cryptograph/P_UI.cpp" "CMakeFiles/main.dir/P_UI.cpp.o" "gcc" "CMakeFiles/main.dir/P_UI.cpp.o.d"
+  "/home/mephi/Work/cryptograph/XOR.cpp" "CMakeFiles/main.dir/XOR.cpp.o" "gcc" "CMakeFiles/main.dir/XOR.cpp.o.d"
   "/home/mephi/Work/cryptograph/main.cpp" "CMakeFiles/main.dir/main.cpp.o" "gcc" "CMakeFiles/main.dir/main.cpp.o.d"
   )
 

@@ -129,6 +129,54 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+P_UI.o: P_UI.cpp.o
+.PHONY : P_UI.o
+
+# target to build an object file
+P_UI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/P_UI.cpp.o
+.PHONY : P_UI.cpp.o
+
+P_UI.i: P_UI.cpp.i
+.PHONY : P_UI.i
+
+# target to preprocess a source file
+P_UI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/P_UI.cpp.i
+.PHONY : P_UI.cpp.i
+
+P_UI.s: P_UI.cpp.s
+.PHONY : P_UI.s
+
+# target to generate assembly for a file
+P_UI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/P_UI.cpp.s
+.PHONY : P_UI.cpp.s
+
+XOR.o: XOR.cpp.o
+.PHONY : XOR.o
+
+# target to build an object file
+XOR.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/XOR.cpp.o
+.PHONY : XOR.cpp.o
+
+XOR.i: XOR.cpp.i
+.PHONY : XOR.i
+
+# target to preprocess a source file
+XOR.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/XOR.cpp.i
+.PHONY : XOR.cpp.i
+
+XOR.s: XOR.cpp.s
+.PHONY : XOR.s
+
+# target to generate assembly for a file
+XOR.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/XOR.cpp.s
+.PHONY : XOR.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +210,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
+	@echo "... P_UI.o"
+	@echo "... P_UI.i"
+	@echo "... P_UI.s"
+	@echo "... XOR.o"
+	@echo "... XOR.i"
+	@echo "... XOR.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
