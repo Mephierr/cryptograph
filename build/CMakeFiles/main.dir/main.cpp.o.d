@@ -150,7 +150,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/mephi/Work/cryptograph/main.cpp \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
  /home/mephi/Work/cryptograph/XOR.hpp \
- /home/mephi/Work/cryptograph/P_UI.hpp /usr/include/SFML/Graphics.hpp \
+ /home/mephi/Work/cryptograph/P_UI.cpp /usr/include/SFML/Graphics.hpp \
  /usr/include/SFML/Window.hpp /usr/include/SFML/System.hpp \
  /usr/include/SFML/Config.hpp /usr/include/SFML/System/Clock.hpp \
  /usr/include/SFML/System/Export.hpp /usr/include/SFML/System/Time.hpp \

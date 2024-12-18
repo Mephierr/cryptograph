@@ -3,7 +3,6 @@
 
 CMakeFiles/main.dir/P_UI.cpp.o
  /home/mephi/Work/cryptograph/P_UI.cpp
- /home/mephi/Work/cryptograph/P_UI.hpp
  /usr/include/SFML/Config.hpp
  /usr/include/SFML/Graphics.hpp
  /usr/include/SFML/Graphics/BlendMode.hpp
@@ -497,7 +496,7 @@ CMakeFiles/main.dir/XOR.cpp.o
 
 CMakeFiles/main.dir/main.cpp.o
  /home/mephi/Work/cryptograph/main.cpp
- /home/mephi/Work/cryptograph/P_UI.hpp
+ /home/mephi/Work/cryptograph/P_UI.cpp
  /home/mephi/Work/cryptograph/XOR.hpp
  /usr/include/SFML/Config.hpp
  /usr/include/SFML/Graphics.hpp

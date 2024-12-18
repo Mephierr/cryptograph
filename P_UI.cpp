@@ -1,16 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
-#include "P_UI.hpp"
+
 
 class Button {
 public:
     Button(const std::string& text, float x, float y) {
         // Настройка шрифта
-        if (!font.loadFromFile("arial.ttf")) { // Убедитесь, что файл шрифта доступен
-            std::cerr << "Ошибка загрузки шрифта" << std::endl;
-        }
-
+       
         // Настройка текста кнопки
         buttonText.setFont(font);
         buttonText.setString(text);

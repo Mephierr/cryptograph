@@ -1,6 +1,6 @@
 #include<iostream>
 #include"XOR.hpp"
-#include"P_UI.hpp"
+#include"P_UI.cpp"
 
 int main()
 {

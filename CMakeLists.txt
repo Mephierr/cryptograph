@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8) # Проверка версии CMake.
 project(cryptograph)				# Название проекта
 
 set(SOURCE_EXE main.cpp P_UI.cpp XOR.cpp)			# Установка переменной со списком исходников
-set(HEADERS XOR.hpp P_UI.hpp)
+set(HEADERS XOR.hpp )
 
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
