@@ -1,10 +1,4 @@
-/*
-I gave everything default values so it is easier to edit values by
-erasing the call to the varible and replacing it with the wanted number
-and the defaults are there for when the defaults are wanted again, just type in the varible. Since i used constexpr there shoudlnt be any
-slow down or lare memory consumption if my understanting of constexpr
-is correct. Please do correct and critique me, i like to learn
-*/
+
 #include "encryption_includes.h"
 
 constexpr unsigned short GLOBAL_MTX_SIZE = 4*4;
@@ -13,9 +7,9 @@ namespace encryption {
 
 
   namespace KEY {
-    //The default key value
+    //Значение ключа по умолчанию
     static constexpr unsigned short DEFAULT_KEY_NUM = 0;
-    //This is THE key, made like this so you can just pre set the key and it's used throught the header seamlessly orbyou can prompt the user for a key and generate a key easily or anything with KEY::key
+    //Это ключ, такой, что вы можете просто предварительно установить ключ, и он будет легко использоваться через заголовок, или вы можете запросить у пользователя ключ и легко сгенерировать ключ или что-то еще с помощью KEY::key
     static unsigned int key = DEFAULT_KEY_NUM;
   }
   static string output_str;
@@ -25,8 +19,8 @@ namespace encryption {
       static constexpr AESbyte SPACE_BYTE = 0b00000000;
       static constexpr short bitsInByte = 8;
       static constexpr short mtx_size = GLOBAL_MTX_SIZE;
-      static constexpr short rounds_of_encryption = 10;  //AES-128 requires 10 rounds of encryption  
-      static constexpr short AESwords_in_key = 4;   //Nk Represents the number of AESwords that are input keys
+      static constexpr short rounds_of_encryption = 10;  //AES-128 требуется 10-ти разовое шифрования
+      static constexpr short AESwords_in_key = 4;   //Nk Представляет количество слов AESword, которые являются ключами ввода.
       static constexpr unsigned short expanded_key_size = (4*(rounds_of_encryption+1));
 
       static constexpr AESbyte S_Box[mtx_size][mtx_size] = {  
@@ -65,20 +59,20 @@ namespace encryption {
         {0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0, 0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61},  
         {0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26, 0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D}  
         };  
-      //Round constant, used in key expansion. (AES-128 only takes 10 rounds)
+      //Константа, используемая в расширении ключа. (AES-128 требует всего 10 раз)
       static constexpr AESword WheelConst[10] = {0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000,0x20000000, 0x40000000, 0x80000000, 0x1b000000, 0x36000000}; 
 
 
       static AESword _4Bytes2Word(AESbyte& k1, AESbyte& k2, AESbyte& k3, AESbyte& k4);
-      //Position Transformation
+      //Трансформация позиции
       static AESword PosTrans(AESword& rw);
-      //S-Box Transformation
+      //S-Box трансформация
       static AESword SBoxTrans(AESword& sw);
-      //Helper for SBoxTrans, accepts 4x4 byte matrix
+      //Помощник для SBoxTrans, принимает байтовую матрицу 4x4.
       static void SBoxTransSubBytes(AESbyte mtx[mtx_size]);
-      //Line Transformation. Shifts Rows Left
+      //Трансформация линии. Сдвигает строки влево
       static void ShiftRows(AESbyte mtx[mtx_size]);
-      //Shifts columns
+      //Смещает столбцы
       static void MixColumns(AESbyte mtx[mtx_size]);
       static void AddRoundKey(AESbyte mtx[mtx_size], AESword k[4]);
       static AESbyte GaloisFieldsMul(AESbyte a, AESbyte b); 
@@ -86,7 +80,7 @@ namespace encryption {
       static void InvShiftRows(AESbyte mtx[mtx_size]);
       static void InvMixColumns(AESbyte mtx[mtx_size]);
 
-      //Conversions
+      //Конверсии
       class CONVERSIONS {
         public:
         static AESbyte char_to_byte_(char inp);
@@ -94,17 +88,17 @@ namespace encryption {
         static AESbyte binStr_to_byte(string input);
       };
 
-      //Random number generation function
+      //Функция генерации случайных чисел
       static inline unsigned int getRandomNum(unsigned int min, unsigned int max);
-      //Expand Key
+      //Развернуть ключ
       static void KeyExpansion(AESword w[expanded_key_size]);
-      //Actual Encrypt function
+      //Фактическая функция шифрования
       static void cypher_encrypt(AESbyte in[mtx_size], AESword w[expanded_key_size]);
-      //Actual Decrypt function
+      //Фактическая функция расшифровки
       static void cypher_decrypt(AESbyte in[mtx_size], AESword w[expanded_key_size]);
 
-      static AESword global_expanded_key[expanded_key_size]; //Needs to be initilized
-      //Generate key
+      static AESword global_expanded_key[expanded_key_size]; //Необходимо инициализировать
+      //Сгенерировать ключ
       static void generate_key();
 
       class FILES {
@@ -150,19 +144,19 @@ namespace encryption {
         deleteKeyFile = 0b00000010,
         deleteAesencFile = 0b00000011
       };
-      //Encrypt
+      //Шифровать
       static string encrypt(string input);
-      //Encrypt From File
+      //Шифровать из файла
       static bool encryptFF(string path);
-      //Decrypt
+      //Расшифровать
       static string decrypt(string input);
-      //Decrypt From File
+      //Расшифровать из файла
       static bool decryptFF(string path);
 
-      //Call before use
+      //Перед использованием позвоните
       static void aes_init(OPTIONS genkey, string dummykey = "");
 
-      //Encrypt File 
+      //Зашифровать файл
       static bool encryptFile(string path, string password, FILE_FLAGS flags = FILE_FLAGS::nothing);
       
       static bool decryptFile(string path, string password, string keyFilePath = "", FILE_FLAGS flags = nothing);

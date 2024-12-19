@@ -3,7 +3,7 @@
 namespace FileOperations {
   class FileOP {
     public:
-    //Input dir - &files - &folders
+    //Входной каталог - &files - &folders
     static void searchDir(char* directory, string &files, string &folders, bool doRecursiveSearch = false);
 
     static bool isRealDir(char* path);

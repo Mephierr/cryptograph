@@ -3,30 +3,30 @@
 // 1
 void aesExample() {
 	string actual_string;
-	AES::aes_init(AES::OPTIONS::doGenerateKey); // Call before use
+	AES::aes_init(AES::OPTIONS::doGenerateKey); 
 
-	// Output key
+	// ключ вывода
 	cout << "Key: ";
 	for (int i = 0; i < sizeof(AES::KEY::key) / sizeof(AES::KEY::key[0]); ++i) {
 		cout << AES::KEY::key[i] << " ";
 	};
 	cout << endl;
 
-	cout << "Input what you would like encrypted:" << endl;
+	cout << "Введите то, что вы хотите зашифровать:" << endl;
 	cin.ignore();
 	getline(cin >> noskipws, actual_string);
 
 	cout << endl
-		 << "Plaintext to be encrypted:" << endl
+		 << "Текст, подлежащий шифрованию:" << endl
 		 << actual_string << endl;
 
 	// Encryption, output ciphertext
 	actual_string = AES::encrypt(actual_string);
-	cout << "Encrypted ciphertext:" << endl << actual_string << endl;
+	cout << "Зашифрованный текст:" << endl << actual_string << endl;
 	// Decrypt, output plaintext
 	actual_string = AES::decrypt(actual_string);
-	cout << "Decrypted plaintext:" << endl << actual_string << endl;
-	cout << "Press any key to continue" << endl;
+	cout << "Расшифрованный текст:" << endl << actual_string << endl;
+	cout << "Нажмите любую клавишу, дабы продолжить" << endl;
 	cin.ignore();
 	return;
 };
@@ -34,15 +34,15 @@ void aesExample() {
 // 2
 void textFromFileExample() {
 	string input;
-	cout << "Please input the path to the file: " << endl;
+	cout << "Введите путь до файла: " << endl;
 	cin.ignore();
 	cin >> input;
 	if (!AES::encryptFF(input)) {
 		return;
-	}; // returns false if path is bad
+	}; // выводит false если путь неверен
 	ifstream readfile(input);
 	string line;
-	cout << "Encrypted: " << endl;
+	cout << "Зашифрованное: " << endl;
 	while (getline(readfile, line)) {
 		cout << line << endl;
 	};
@@ -51,7 +51,7 @@ void textFromFileExample() {
 		return;
 	};
 	readfile.open(input);
-	cout << "Decrypted: " << endl;
+	cout << "Расшифрованное: " << endl;
 	while (getline(readfile, line)) {
 		cout << line << endl;
 	};
@@ -62,38 +62,38 @@ void textFromFileExample() {
 inline void wholeFileEncryptionExample() {
 	AES::aes_init(AES::OPTIONS::doGenerateKey);
 
-	cout << "Generated key: ";
+	cout << "Сгенерированный ключ: ";
 	for (int i = 0; i < sizeof(AES::KEY::key) / sizeof(AES::KEY::key[0]); ++i) {
 		cout << AES::KEY::key[i] << " ";
 	};
 	cout << endl << endl << endl;
 
   string pass;
-  printf("Please input a password\n");
+  printf("Введите пароль\n");
 	cin.ignore();
 	cin >> pass;
   
   
 	string input;
 	printf(
-		"Please input the path to the file (please see testFiles folder): \n");
+		"Введите путь до файла (см. папку testFiles): \n");
 	cin.ignore();
 	cin >> input;
 
 	if (!AES::encryptFile(input, pass)) {
 		return;
-	}; // returns false if path is bad
+	}; // выводит false при плохом пути до файла
 
-	printf("Please input new path to .aesenc file\n");
+	printf("Введите новый путь к файлу .aesenc\n");
 	cin.ignore();
 	string newInput;
 	cin >> newInput;
   
-  printf("Please input your password\n");
+  printf("Введите ваш пароль\n");
 	cin.ignore();
 	cin >> pass;
   
-	printf("Encrypted\nDecrypting...\n");
+	printf("Зашифрован\nРасшифровка...\n");
 	thread dec(
 		AES::decryptFile,
 		ref(newInput),
@@ -108,10 +108,10 @@ inline void wholeFileEncryptionExample() {
 // 5
 void aes_debug() {  
   cout << "AES SECTION" << endl;
-	cout << "Testing file functions" << endl << endl;
+	cout << "Тестирование функций файла" << endl << endl;
 	cout << "1mb" << endl;
 
-  cout << "Reading" << endl;
+  cout << "Считывание" << endl;
 	ifstream file("testFiles/1mb/1mb.txt");
 	file.seekg(0, file.end);
 	int length = file.tellg();
@@ -121,13 +121,13 @@ void aes_debug() {
 	string text = buffer;
 	delete[] buffer;
 	file.close();
-  cout << "Testing" << endl;
+  cout << "Тестирование" << endl;
 
-  cout << "Init" << endl;
+  cout << "Инициализация" << endl;
 	AES::aes_init(AES::OPTIONS::doGenerateKey);
-  cout << "Encrypting" << endl;
+  cout << "Шифровка" << endl;
 	AES::encryptFile("testFiles/1mb/1mb.txt", "test");
-  cout << "Decrypting" << endl;
+  cout << "Расшифровка" << endl;
 	AES::decryptFile(
 		"testFiles/1mb/1mb.aesenc",
     "test",
@@ -136,7 +136,7 @@ void aes_debug() {
 			AES::FILE_FLAGS::deleteAesencFile |
 			AES::FILE_FLAGS::deleteKeyFile));
 
-  cout << "Comparing" << endl;
+  cout << "Сравнение" << endl;
 	file.open("testFiles/1mb/1mb.txt");
 	file.seekg(0, file.end);
 	length = file.tellg();
@@ -148,45 +148,45 @@ void aes_debug() {
 	file.close();
 
 	if (text == text2) {
-		cout << "Test 1 Success" << endl;
+		cout << "Test 1 Успех" << endl;
 	} else {
     for (long int i = 0; i < text.length(); i++) {
       cout << text[i] << " | " << text2[i] << " | " << (text[i] == text2[i]) << endl;
       if (text[i] != text2[i]) {break;};
     };
-		cout << "Test 1 Fail" << endl;
+		cout << "Test 1 Провал" << endl;
 	};
 
-	cout << "Testing Standard Encrypt & Decrypt" << endl;
-	text = "this is a test";
+	cout << "Тестирование шифрования & дешифрования" << endl;
+	text = "это тест";
 	text2 = AES::encrypt(text);
 	text2 = AES::decrypt(text2);
 
 	if (text == text2) {
-		cout << "Test 2 Success" << endl;
+		cout << "Test 2 Успех" << endl;
 	} else {
-		cout << "Test 2 Fail" << endl;
+		cout << "Test 2 Провал" << endl;
 	};
 
-  cout << "Testing bitmap, check image to verify test" << endl;
+  cout << "Тестирование растрового изображения, проверьте изображение" << endl;
   AES::encryptFile("testFiles/bitmap/img.bmp", "test");
   AES::decryptFile("testFiles/bitmap/img.aesenc", "test", "", (AES::FILE_FLAGS)(AES::FILE_FLAGS::deleteAesencFile | AES::FILE_FLAGS::deleteKeyFile));
-  cout << "finished" << endl;
+  cout << "заканчиваю" << endl;
 };
 
 string text[6] = {
 	"AES = 1",
-	"AES text from file = 2",
-	"AES whole file encryption = 3",
-  "List all files = 4",
-	"AES Debug = 5",
-	"Please input the cooresponding number to your desired example"};
+	"AES текст из файла = 2",
+	"AES шифрование всего файла = 3",
+  "Список всех файлов = 4",
+	"AES Дебаг = 5",
+	"Введите номер желаемого действия"};
 
 
 int main() {   
   
   cout << "\n##########################\n"
-    << "\nWhich example would you like to use?" << endl;
+    << "\nЧто вы хотите использовать?" << endl;
 
 	cout << text[0] << endl;
 	cout << text[1] << endl;
@@ -217,7 +217,7 @@ int main() {
 		break;
 
 	default:
-		cout << "Err please input 1, 2, 3, 4, 5, 6, or 7" << endl;
+		cout << "Ошибка, введите 1, 2, 3, 4, 5, 6, or 7" << endl;
 		return main();
 	};
 	return main();

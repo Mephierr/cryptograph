@@ -14,14 +14,14 @@ namespace asymmetric {
 
     static string password_key;
     private:
-    //Please change this to a different nonPrime, even number for actual usage
-    // (just use evenGenerator but change the bounds so your max wont be absurd and your range will be wide enough)
+    //Измени это значение на другое, нестандартное, четное число для использования
+    // (просто используйте evenGenerator, но измените границы, чтобы ваш max не был абсурдным, а ваш диапазон был достаточно широким)
     static constexpr size_t staticPrivateKey = 1417395678;
-    //Formula - sMod(mod(publicKey / privateKey) + mod(publicKey)) + convertPassword();
+    //Формула - sMod(mod(publicKey / privateKey) + mod(publicKey)) + convertPassword();
 
     struct bounds {
       private:
-      //Adjustment of this value is not reccomended
+      //Изменять это значение не рекомендуется
       static constexpr unsigned short multiplier = 2;
 
       public:
@@ -32,10 +32,10 @@ namespace asymmetric {
     };
 
 
-    //Manually set these to anything between 0 & 65535
-    //These function sort of like the static private key, but they just add more randomness
-    //to functions which will increase the security of the algorithm even if an attacker has access to
-    //the header and algorithm.
+//Вручную установите для них значения от 0 до 65535
+//Эти функции похожи на статический закрытый ключ, но они просто добавляют больше случайности
+//к функциям, которые повысят безопасность алгоритма, даже если злоумышленник получит доступ к
+//заголовку и алгоритму.
     struct entropy {
       public: 
       static constexpr unsigned short Val1 = 10048;
@@ -59,7 +59,7 @@ namespace asymmetric {
 
     static void numDeShuffleAlg(short &num1, short &num2, short &num3, short &num4, short &num5, short &num6, short &num7, short &num8);
 
-    //Shuffle each key byte's bit
+    //Перемешивает бит каждого ключевого байта
     static string shuffle8(string inp, size_t looper, size_t realKey, bool unShuffle = false);
   };
 };

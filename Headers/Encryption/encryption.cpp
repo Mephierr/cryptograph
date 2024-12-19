@@ -74,7 +74,7 @@ namespace encryption {
   };
 
   void AES::ShiftRows(AESbyte mtx[mtx_size]) {  
-    //The second line circle moves one bit to the left  
+    //Вторая линия круга перемещается на один бит влево
     AESbyte temp = mtx[4];  
     for(int i=0; i<3; ++i) {
       mtx[i+4] = mtx[i+5];
@@ -82,13 +82,13 @@ namespace encryption {
 
     mtx[7] = temp;
 
-    //The third line circle moves two places to the left  
+    //Третий круг перемещается на две позиции влево.
     for(int i=0; i<2; ++i) {  
         temp = mtx[i+8];  
         mtx[i+8] = mtx[i+10];  
         mtx[i+10] = temp;  
     };
-    //The fourth line moves three left circles  
+    //Четвертая линия перемещает три круга влево
     temp = mtx[15];  
     for(int i=3; i>0; --i)  
         mtx[i+12] = mtx[i+11];  
@@ -96,7 +96,7 @@ namespace encryption {
   };  
   
   
-  //Multiplication over Finite Fields GF(2^8)     
+  //Умножение над конечными полями GF(2^8)
   AESbyte AES::GaloisFieldsMul(AESbyte a, AESbyte b) {   
       AESbyte p = 0;  
       AESbyte hi_bit_set;  
@@ -149,18 +149,18 @@ namespace encryption {
   };
 
   void AES::InvShiftRows(AESbyte mtx[mtx_size]) {  
-    //The second line circle moves one bit to the right  
+    //Второй круг перемещается на один бит вправо.
     AESbyte temp = mtx[7];  
     for(int i=3; i>0; --i)  
         mtx[i+4] = mtx[i+3];  
     mtx[4] = temp;  
-    //The third line circle moves two to the right  
+    //Третий круг перемещается на два вправо.
     for(int i=0; i<2; ++i) {  
         temp = mtx[i+8];  
         mtx[i+8] = mtx[i+10];  
         mtx[i+10] = temp;  
     };
-    //Fourth line circle moves three to the right  
+    //Круг четвертой линии перемещается на три вправо.
     temp = mtx[12];  
     for(int i=0; i<3; ++i)  
         mtx[i+12] = mtx[i+13];  
@@ -180,7 +180,7 @@ namespace encryption {
     };
   };
 
-  //Basically converting char to hex
+  //Простое преобразование char в шестнадцатеричный вид
   AESbyte AES::CONVERSIONS::char_to_byte_(char inp) {
     return static_cast<AESbyte>(inp);
   };
@@ -291,10 +291,10 @@ namespace encryption {
 
 
   ///////////////////////////////////////////////////////
-  /////////Pass through encrypt & decrypt functions//////
-  /////////that input and output strings/////////////////
+  /////Прохождение функций шифрования и дешифрования/////
+  /////////это входные и выходные строки/////////////////
   ///////////////////////////////////////////////////////
-  AESbyte AES::KEY::key[mtx_size]; //Key definition
+  AESbyte AES::KEY::key[mtx_size]; //Определение ключа
 
   /////////////
   ///Encrypt///
@@ -311,7 +311,7 @@ namespace encryption {
       
       AESbyte hex_val[mtx_size] = {SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE, SPACE_BYTE};
 
-      //convert char to binary byte
+      //преобразование символа в двоичный байт
       for (int x = 0; x < mtx_size; x++) {
         if ((loop+x) < length) {
           hex_val[x] = CONVERSIONS::char_to_byte_(input[loop+x]);
@@ -322,9 +322,9 @@ namespace encryption {
       };
 
       cypher_encrypt(hex_val, w);
-      //Make the binary turn to hex then make that a string
+      //Преобразование двоичного кода в шестнадцатеричный, а затем превращение его в строку
       for (int x = 0; x < mtx_size; x++) {
-        output += hex_val[x].to_string(); //Binary output
+        output += hex_val[x].to_string(); //Двоичный аутпут
       };
       
     };
@@ -374,10 +374,10 @@ namespace encryption {
 
   bool AES::encryptFF(string path) {
     string output;
-    //Check if path is good
+    //Проверка на правильный путь
     ifstream infile(path);
     if (infile.good() == false) {return false;};
-    //Get text from file
+    //Получение текста из файла
     string text;
     string line;
     while (getline(infile, line)) {
@@ -393,10 +393,10 @@ namespace encryption {
 
   bool AES::decryptFF(string path) {
     string output;
-    //Check if path is good
+    //Проверка на правильный путь
     ifstream infile(path);
     if (infile.good() == false) {return false;};
-    //Get text from file
+    //Получение текста из файла
     string text;
     getline(infile, text); 
     infile.close();
@@ -407,15 +407,15 @@ namespace encryption {
     return true;
   };
 
-  ///////////////////////////////////
-  ///Making my own encrypted files///
-  ///////////////////////////////////
+  ///////////////////////////////////////////////
+  ///Создание собственных зашифрованных файлов///
+  ///////////////////////////////////////////////
 
   void AES::FILES::BMP_::get(string path, string& data) {
     char* filename = const_cast<char*>(path.c_str());
     BMPbyte *pixels;
     int32 width, height, bytesPerPixel;
-    //Get size of pixel arr with width*height*bytesPerPixel
+    //Получение размера пикселя с помощью width*height*bytesPerPixel
     BMP::ReadImage(filename, &pixels, &width, &height, &bytesPerPixel);
     data+=to_string(width)+FILES::BMP_::DATA_SEPARATOR;
     data+=to_string(height)+FILES::BMP_::DATA_SEPARATOR;
@@ -432,50 +432,50 @@ namespace encryption {
   };
 
   void AES::FILES::BMP_::out(string path, string data) {
-    //Convert path str to char*
+    //Преобразование путь str to char*
     char* filename = const_cast<char*>(path.c_str());
     data.erase(0, data.find_first_of(AES::FILES::EXTENSION_SEPERATOR)+1);
     int32 width, height, bytesPerPixel;
     string str;
-    //get width
+    //получение ширины
     str = data.substr(0, data.find_first_of(DATA_SEPARATOR));
     width = stoi(str);
-    //get height
+    //получение высоты
     data.erase(0, data.find_first_of(DATA_SEPARATOR)+1);
     str = data.substr(0, data.find_first_of(DATA_SEPARATOR));
     height = stoi(str);
-    //get bytesPerPixel
+    //получение bytesPerPixel
     data.erase(0, data.find_first_of(DATA_SEPARATOR)+1);
     str = data.substr(0, data.find_first_of(DATA_SEPARATOR));
     bytesPerPixel = stoi(str);
     data.erase(0, data.find_first_of(DATA_SEPARATOR)+1);
 
     rgb_compression::decompress(data, NUM_SEPARATOR);
-    //Length of pixels
+    //Длина пикселей
     const unsigned int length = height*(width*bytesPerPixel);
     
     BMPbyte* pixels;    
     rgb_compression::asgnPix(pixels, data, NUM_SEPARATOR, length); data.clear();
     
-    //Write the image
+    //Написание изображение
     BMP::WriteImage(filename, pixels, width, height, bytesPerPixel);
   };
 
-  //Design: file type will be in front of all the data.
-  //It will be seperated with a ~ in the decrypted code.
+  //Design: тип файла будет перед всеми данными.
+  //В расшифрованном коде он будет разделен знаком ~.
 
-  //so it will be like this
+  //пример
   //.{extension}~{data}
-  //In the case of bitmaps it will be like this
+  //В случае растровых изображений это будет так
   //.bmp~{width}:{height}:{bytesPerPixel}:{rgb int},{rgb int},etc...
   
-  //Extension: .aesenc
+  //Расширение: .aesenc
   const string AES::FILES::FILE_EXTENSION = ".aesenc";
   const string AES::FILES::KEYFILE_NAME = "_KEYFILE";
   const string AES::FILES::KEYFILE_EXT = ".aeskey";
   const string AES::FILES::BMP_::identifier = ".bmp";
 
-  //Classify type of file
+  //Классифицировать тип файла
   void AES::FILES::classify(string ext, AES::FILES::CLASSIFIER &type) {
     for (int i=0; i < FileOP::TXT::id_len; i++) {
       if (ext == FileOP::TXT::identifier[i]) {type=FILES::CLASSIFIER::_TEXT;break;};
@@ -486,11 +486,11 @@ namespace encryption {
     if (ext == PNG::ID) {type=FILES::CLASSIFIER::_PNG;};
   };
 
-  //Key File
+  //Файл ключей
   bool AES::FILES::gen_key_file(string path) {
-    path.erase(path.rfind('.'), path.length()); //Erase extension
-    path+=KEYFILE_NAME;//edit name
-    path+=KEYFILE_EXT;//add extension
+    path.erase(path.rfind('.'), path.length()); //Удалить расширение
+    path+=KEYFILE_NAME;//изменить имя
+    path+=KEYFILE_EXT;//добавить расширение
     FileOP::mkFile(path);
     
     string data;
@@ -510,10 +510,10 @@ namespace encryption {
   };
 
   bool AES::FILES::in_key_file(string path) {
-    path.erase(path.rfind('.'), path.length()); //Erase extension
+    path.erase(path.rfind('.'), path.length()); //Удалить расширение
     
-    path+=KEYFILE_NAME;//edit name
-    path+=KEYFILE_EXT;//add extension
+    path+=KEYFILE_NAME;//изменение имени
+    path+=KEYFILE_EXT;//добавление расширения
     FileOP::checkPath(path);
     
     string data;
@@ -578,55 +578,55 @@ namespace encryption {
         return false;
     };
     
-    ext.clear(); //Delete because it's useless
+    ext.clear(); //удаление, потому что это бесполезно
     
-    //Encrypt it
+    //шифровка
     data = encrypt(data);
       
-    //Make new file & path using old path by removing the extension from the string
+    //Создание нового файла и пути, используя старый путь, удаляя расширение из строки.
     if (flags == FILE_FLAGS::deleteInputFile) {remove(path.c_str());};
     path.erase(path.rfind('.'), path.length());
     path+=FILES::FILE_EXTENSION;
-    //Simple write so why not use txt out
+    //Запись, так почему бы не использовать текстовый вывод
     FileOP::TXT::write(path, data);
     return true;
   };
 
   bool AES::decryptFile(string path, string password, string keyFilePath, FILE_FLAGS flags) {
      AKARE::password_key = password;
-     //checks if path is valid
+     //проверка на действительность пути
      if(FileOP::isRealDir(path) == false || path.substr(path.find_last_of('.'), path.length()) != FILES::FILE_EXTENSION) {return false;}
     string data;
-    //Just like in encryptFile
+    //Точно так же, как в encryptFile
     FileOP::TXT::read(path, data);
 
     if (keyFilePath != "") {AES::FILES::in_key_file(keyFilePath);}
     else {AES::FILES::in_key_file(path);};    
     
-    //Decrypt
+    //Расшифровка
     data = decrypt(data);
 
     if (flags & AES::FILE_FLAGS::deleteAesencFile) {remove(path.c_str());};
     if (flags & AES::FILE_FLAGS::deleteKeyFile) {
       string pa = path;
-      pa.erase(pa.rfind('.'), pa.length()); //Erase extension
-      pa+=FILES::KEYFILE_NAME;//edit name
-      pa+=FILES::KEYFILE_EXT;//add extension
+      pa.erase(pa.rfind('.'), pa.length()); //Удаление расширения
+      pa+=FILES::KEYFILE_NAME;//изменение имени
+      pa+=FILES::KEYFILE_EXT;//добавление расширения
       remove(pa.c_str()); pa.clear();
     };
     
-    //Make new path
+    //создание нового пути
     path.erase(path.find_last_of('.'), path.length());
     string ext = data.substr(data.find_first_of('.'), data.find_first_of(FILES::EXTENSION_SEPERATOR));
-    path += ext; //add extension to path
+    path += ext; //добавление расширения к пути
 
-    //Erase that part of the decrypted data
+    //Удаление этой части расшифрованных данных
     data.erase(data.find_first_of('.'), data.find_first_of(FILES::EXTENSION_SEPERATOR)+1);
     data.erase(data.length(), data.length());
 
     FILES::CLASSIFIER type = FILES::CLASSIFIER::_RETURN;
     FILES::classify(ext, type);
-    ext.clear(); //Not needed, free memory
+    ext.clear(); // очистка памяти
     switch (type) {
       case FILES::CLASSIFIER::_RETURN:
         return false;

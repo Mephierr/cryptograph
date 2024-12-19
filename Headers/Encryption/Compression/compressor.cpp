@@ -69,7 +69,7 @@ namespace COMPRESSION {
     {"8", "&"},
     {"9", "$"}
     };
-  //These are what ive found to be the most common 2 characters
+  //Это 2 самые расспространенные символы
   const string binary_compression::fourthLayerMulRChars[fourthLayerMultiplier[0]][fourthLayerMultiplier[1]] = {
     {"A}", "x"},
     {"Ta", "y"},
@@ -120,10 +120,10 @@ namespace COMPRESSION {
   void binary_compression::compress(string& input) {    
     string str;
 
-    //First compression
-    //Say you have 2 bytes 0100001100111100
-    //That would be reduced to 010412021402
-    //01 is the same, then 04 means repeat 0 four times in decompression, 12 = 11 et cetera....
+    //Первое сжатие
+    //Допустим, у вас есть 2 байта 0100001100111100.
+    //Это будет сокращено до 010412021402.
+    //01 то же самое, затем 04 означает повторение 0 четыре раза при декомпрессии, 12 = 11 и так далее....
     for (int i = 0, increment = 0; i < input.length(); i++) {
       for (increment = 1;; increment++) {
         if (input[i] != input[i+increment] || increment == 9) {break;};
@@ -140,7 +140,7 @@ namespace COMPRESSION {
     input = str;
     str.clear();
 
-    //Second compression of the compressed stuff already
+    //Уже второе сжатие сжатого материала
     for (int i = 0; i<input.length(); i++) {
       string twoBytes;
 
@@ -165,7 +165,7 @@ namespace COMPRESSION {
     input = str;
     str.clear();
     
-    //Third layer of compression
+    //Третий уровень сжатия
     for (int i = 0, increment = 1; i < input.length(); i++) {
       for (increment = 1;; increment++) {
         if (input[i] != input[i+increment] || increment == 9) {break;};
@@ -185,7 +185,7 @@ namespace COMPRESSION {
     input = str;
     str.clear();
 
-    //Fourth Layer
+    //Четвертый уровень
     for (int i = 0; i<input.length(); i++) {
       string twoBytes;
 
@@ -210,7 +210,7 @@ namespace COMPRESSION {
     input = str;
     str.clear();
     
-    //Fifth layer of compression
+    //Пятый лвл
     for (int i = 0, increment = 1; i < input.length(); i++) {
       for (increment = 1;; increment++) {
         if (input[i] != input[i+increment] || increment == 5) {break;};
@@ -232,7 +232,7 @@ namespace COMPRESSION {
 
   void binary_compression::decompress(string& input) {
     string output;
-    //Fifth Layer Decompression
+    //Декомпрессия пятого слоя
     for (int i = 0, pos = 0; i < input.length(); i++) {
       if (input[i] == breakChar) {output+=breakChar; break;}
       for (int x = 0; x < fifthLayerMultiplier[0]; x++) {
@@ -251,7 +251,7 @@ namespace COMPRESSION {
     };
     input = output;
     output.clear();
-    //Fourth layer decompression
+    //Декомпрессия четвертого слоя
     for (int i = 0; i < input.length(); i++) {
       if (input[i] == breakChar) {output+=breakChar; break;};
       
@@ -269,7 +269,7 @@ namespace COMPRESSION {
     input=output;
     output.clear();
 
-    //Third Layer Decompression
+    //Декомпрессия третьего слоя
     for (int i = 0, pos = 0; i < input.length(); i++) {
       if (input[i] == breakChar) {output+=breakChar; break;}
       for (int x = 0; x < thirdLayerMultiplier[0]; x++) {
@@ -289,7 +289,7 @@ namespace COMPRESSION {
     input = output;
     output.clear();
 
-    //Second layer decompression
+    //Декомпрессия второго слоя
     for (int i = 0; i < input.length(); i++) {
       if (input[i] == breakChar) {output+=breakChar; break;};
       
@@ -307,7 +307,7 @@ namespace COMPRESSION {
     input=output;
     output.clear();
 
-    //Binary decompression
+    //Бинарная декомпрессия
     for (int i = 0; i < input.length(); i++) {
       if (input[i] == breakChar) {break;};
       if (input[i+1] != '0' && input[i+1] != '1' && input[i+1] != breakChar) {
@@ -324,8 +324,8 @@ namespace COMPRESSION {
   ///  RGB  ///////////////
   /////////////////////////
   const string rgb_compression::CORE::VAR::firstLayerMulRChars[firstLayerMultiplier[0]][firstLayerMultiplier[1]] {
-    {"0", ""}, //Will not be used
-    {"1", ""}, // ^
+    {"0", ""}, //Не будет юзаться :33333
+    {"1", ""}, 
     {"2", "|"},
     {"3", "$"},
     {"4", "'"},
@@ -408,7 +408,7 @@ namespace COMPRESSION {
 
   void rgb_compression::CORE::FUNC::get_chunk_count(unsigned long int &inp, string clone, char separator, bool div) {
     inp = count(clone.begin(), clone.end(), separator);
-    //since each pixel is 3 values, divide by 3 to get actual chunk value
+    //поскольку каждый пиксель имеет 3 значения, разделим на 3, чтобы получить фактическое значение фрагмента
     if (div == true) {
       inp/=3;
     };
@@ -425,12 +425,12 @@ namespace COMPRESSION {
     unique_ptr<rgb_compression::CORE::FUNC> func;
     unique_ptr<rgb_compression::CORE::VAR> var;
     string clone = inp;
-    //count chunks
+    //колво кусков
     unsigned long int chunk_count; func->get_chunk_count(chunk_count, clone, separator);
-    string chunks[chunk_count]; //Big memory allocation
-    //assign chunks to arr
+    string chunks[chunk_count]; //Большое выделение памяти
+    //назначить кусочки для массива
     for (int i=0; i<chunk_count && clone.length() != 0; i++) {
-      //Three at a time since a chunk consists of 3 values like so
+      //По три за раз, поскольку фрагмент состоит из трех значений, например
       //255,98,23,
       if (clone.length() == 0) {break;};
       int first = clone.find_first_of(separator) + 1;
@@ -448,33 +448,33 @@ namespace COMPRESSION {
       clone.erase(0, first);
       if (clone[0] == ' ') {break;};
     };
-    //Free memory
+    //Чистка памяти
     inp.clear(); clone.clear();
     
 
     //////                           //////
     ///////////////////////////////////////
-    /// This is where the magic happens ///
+    ///// Место , где магия возможна //////
     ///////////////////////////////////////
     //////                           //////
 
     
-    //Find matching chunks and pair them accordingly
+    //Нахождение совпадающих фрагментов и соединение их соответствующим образом.
     for (unsigned long int i = 0; i<chunk_count;) {
       unsigned long int rep = 0;
       
-      //Find repeating chunks
+      //Нахождение повторяющиеся фрагментов
       for (; rep < var->firstLayerMultiplier[0]-1;) {
         if (rep > var->firstLayerMultiplier[0]-1) {break;};
         if (chunks[rep + i] == chunks[i]) {rep++;}
         else {break;};
       };
       
-      //Do compression thing if repeat > 1
+      //Компрессировать, если повторится > 1
       if (rep > 1) {
         string temp;
         temp += var->sectionStart + chunks[i] + var->sectionEnd + var->firstLayerMulRChars[rep][1] + separator;
-        //Do thing with commas to make code go brrrrr
+        //Делаем кое-что с запятыми, чтобы код работал ))
         func->replaceSeparator(temp, separator, var->_separator);
         inp += temp; temp.clear();
         i += rep;
@@ -494,14 +494,14 @@ namespace COMPRESSION {
       unique_ptr<CORE::FUNC> func;
       string half1, half2, quarter1, quarter2, quarter3, quarter4,
       eighth1, eighth2, eighth3, eighth4, eighth5, eighth6, eighth7, eighth8;
-      //Chop up input into halfs
+      //Разебываем исходные материалы пополам
       func->halfify(inp, separator, half1);
       half2 = inp; inp.clear();
       
       func->halfify(half1, separator, quarter1);
       quarter2 = half1; half1.clear();
       
-      //quarters to eights and launch threads
+      //Четверти к восьмым и запуск потоков.
       func->halfify(quarter1, separator, eighth1);
       thread th1(comp->compress, ref(eighth1), separator);
       
@@ -547,8 +547,8 @@ namespace COMPRESSION {
     
   };
 
-  /////////////////////////////
-  /// Decompression //////////
+  ///////////////////////////
+  ////// Расшифровка ////////
   ///////////////////////////
 
   void rgb_compression::CORE::FUNC::halfify(string &cln, char sep, string &ret) {
@@ -566,24 +566,17 @@ namespace COMPRESSION {
   void rgb_compression::CORE::DECOMP::decompress(string &inp, char separator) {
     unique_ptr<rgb_compression::CORE::FUNC> func;
     unique_ptr<rgb_compression::CORE::VAR> var;
-    //get all chunks
+    //тэйк всех 
     unsigned long int chunk_count = 0; func->get_chunk_count(chunk_count, inp, separator, false);
     string clone = inp;
     string chunks[chunk_count];
-    //assign chunks to arr
+    //назначение кусочков для массива
     for (int i=0; i<chunk_count; i++) {
       int first = clone.find_first_of(separator) + 1;
       chunks[i] += clone.substr(0, first);  clone.erase(0, first);
     };
     clone.clear(); inp.clear();
     
-    
-    //////                           //////
-    ///////////////////////////////////////
-    /// This is where the magic happens ///
-    ///////////////////////////////////////
-    //////                           //////
-
     
     for (int i=0; i<chunk_count; i++) {
       string str = chunks[i];
@@ -604,7 +597,7 @@ namespace COMPRESSION {
       func->dehexify(str1); func->dehexify(str2); func->dehexify(str3);
       str.clear();
 
-      //rebuild chunk
+      //перестроить чанк
       if (isCompressed) {
         str+=var->sectionStart;
       };
@@ -624,21 +617,21 @@ namespace COMPRESSION {
       string section = chunks[i];
       if (corruptChunk(section, separator) == false) {
         func->replaceSeparator(section, var->_separator, separator);
-        //if first char is { then we know its a compressed chunk big brain
+        //если первый символ равен {, то мы знаем, что это сжатый кусок большого мозга
         if (section[0] == var->sectionStart) {
           char mul = section[section.length()-2];
           section = section.substr(1, section.length()-4);
           int rep;
-          //how many times to make repeat loop go brrrr
+          //сколько раз повторять цикл, брррр
           for (rep = 0; rep<var->firstLayerMultiplier[0]; rep++) {
             if (var->firstLayerMulRChars[rep][1][0] == mul) {break;};
           };
-          //Repeat chunk to str
+          //Повторение фрагмента для str
           for (int x=0; x<rep; x++) {
             inp+=section;
           };
         }
-        //Pretty self explanatory
+        //Довольно понятно
         else {
           inp+=section;
         };
@@ -652,14 +645,14 @@ namespace COMPRESSION {
     unique_ptr<CORE::DECOMP> decomp;
     string half1, half2, quarter1, quarter2, quarter3, quarter4, eighth1,
     eighth2, eighth3, eighth4, eighth5, eighth6, eighth7, eighth8;
-    //Chop up input into halfs
+    //Разебать исходные материалы пополам
     func->halfify(inp, separator, half1);
     half2 = inp; inp.clear();
     
     func->halfify(half1, separator, quarter1);
     quarter2 = half1; half1.clear();
     
-    //quarters to eights and launch threads
+    //без четверти восемь и запускаем потоки
     func->halfify(quarter1, separator, eighth1);
     thread th1(decomp->decompress, ref(eighth1), separator);
     
@@ -707,7 +700,7 @@ namespace COMPRESSION {
 
   void rgb_compression::CORE::DECOMP::errorChecker(string &cln, char sep) {
     constexpr short offset = 2;
-    //check for repeating commas
+    //проверка наличия повторяющихся запятых
     for (int i=0; i<cln.length(); i++) {
       if (cln[i] == sep) {
         if (cln[i+1] == sep) {
@@ -715,7 +708,7 @@ namespace COMPRESSION {
         };
       };
 
-      //remove invalid characters
+      //удаление недопустимых символов
       bool isGood = false;      
       for (int x=0; x<vCharLen; x++) {  
         if (cln[i] == validChars[x] || cln[i] == sep) {
@@ -736,43 +729,43 @@ namespace COMPRESSION {
     if (cnk[0] == CORE::VAR::sectionStart) {containsStartRep = true;};
     if (cnk[cnk.length()-3] == CORE::VAR::sectionEnd) {containsEndRep =  true;};
     
-    //Is it a repeated chunk?
+    //Это повторяющийся кусок?
     if (containsStartRep != containsEndRep) {return true;};
     
-    //Does it end in a sep
+    //Это закончится?
     if (cnk[cnk.length()-1] != sep) {return true;};
     
     return false;
   };
 
-  //////////////////////////
-  // ~ Pixel assignment ~ //
-  //////////////////////////
+  /////////////////////////////
+  // ~ Назначение пикселей ~ //
+  /////////////////////////////
   void rgb_compression::asgnPix(unsigned char* &PIX, string data, char sep, size_t length) {
-    //Pointers for ease of reading and writing
+    //Указатели для удобства чтения и письма.
     unique_ptr<CORE::FUNC> func;
     unique_ptr<CORE::PIXELS> pixels;
     
-    //Allocate memory
+    //Выделение памяти
     char* pix = (char*)malloc(length); 
     PIX = (unsigned char*)malloc(length);
     
-    //Figure out how to split input down into managable, threadable forms
-    //Will be 8 threads
+    //Выясняем, как разделить входные данные на управляемые, поточные формы.
+    //Будет 8 потоков
 
     string str1, str2, quar1, quar2, quar3, quar4, eth1, eth2, eth3, eth4, 
     eth5, eth6, eth7, eth8;
-    //Half
+    //Половина
     func->halfify(data, sep, str1);
     str2 = data; data.clear();
 
-    //Quarter
+    //Четверть
     func->halfify(str1, sep, quar1);
     quar2 = str1; str1.clear();
     func->halfify(str2, sep, quar3);
     quar4 = str2; str2.clear();
 
-    //Eighth
+    //1/8
     func->halfify(quar1, sep, eth1);
     uInt _eth1[2] = {0, pixels->findLength(eth1, sep)};
     
@@ -806,7 +799,7 @@ namespace COMPRESSION {
     thread asgn7(pixels->asgnPixThr, ref(pix), eth7, sep, _eth7[0], _eth7[1]);
     thread asgn8(pixels->asgnPixThr, ref(pix), eth8, sep, _eth8[0], _eth8[1]);
     
-    pixels.reset(); func.reset(); //free mem taken by smart pointers
+    pixels.reset(); func.reset(); //Заполнение памяти, умными указателями
     
     asgn1.join();
     asgn2.join();
@@ -832,18 +825,18 @@ namespace COMPRESSION {
 
   void rgb_compression::CORE::PIXELS::asgnPixThr(char* &pix, string data, char sep, uInt startPos, uInt endPos) {
     for (unsigned int i=startPos; i<endPos+1; i++) {
-      //substring rgb num
+      //подстрока RGB-номер
       if (data == "") {break;};
       size_t pos = data.find_first_of(sep);      
       if (pos == string::npos) {break;}
       string sm = data.substr(0, pos);
       if (sm == "") {break;};
       
-      //assign
+      //назначение
       char uiui = stoi(sm);      
       pix[i] = uiui;
       
-      //delete from data
+      //удаление из данных
       if (data.find(sep) != string::npos && pos < data.length()) {
         data.erase(0, data.find_first_of(sep)+1);
       } else {break;};
@@ -855,13 +848,13 @@ namespace COMPRESSION {
     unique_ptr<rgb_compression::CORE::FUNC> func;
     unique_ptr<rgb_compression::CORE::VAR> var;
     float num = inp; num/=var->hexSize;
-    //Remove trailing 0s
+    //Удалить конечные 0s
     stringstream ss;
     ss << setprecision(4) << num;
     string result;
     string nu;
     ss >> nu;
-    string fnum, snum; //first and second number
+    string fnum, snum; //первый и второй номер
 
     bool sec = false;
     for (int i=0; i<nu.length(); i++){
@@ -894,7 +887,7 @@ namespace COMPRESSION {
     inp=result;
   };
 
-//Multithread example
+//Многопоточный пример
   /*
   int ex = 2;
   thread th(&foo, ref(ex)); //int& in func

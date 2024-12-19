@@ -10,14 +10,14 @@ namespace FileOperations {
   };
 
   int FileOP::isFile(char* path) {
-    //Check path
+    //Проверка пути
     ifstream infile(path);
     if (!infile.good()) {infile.close();return -1;};
     infile.close();
     
     struct stat path_stat;
     stat(path, &path_stat);
-    return S_ISREG(path_stat.st_mode); //true is file | false is dir
+    return S_ISREG(path_stat.st_mode); //true - это файл | false - каталог
   };
 
   void FileOP::searchDir(char* path, string &files, string &folders, bool doRecursiveSearch) {
@@ -25,14 +25,14 @@ namespace FileOperations {
     struct dirent *ent;
     
     if ((dir = opendir(path)) != NULL) {
-      /* print all the files and directories within directory */
+      /*вывести все файлы и каталоги внутри каталога */
       while ((ent = readdir (dir)) != NULL) {
         string p = path; p+=ent->d_name;
         char* newpath = const_cast<char*>(p.c_str());
         
         if (isFile(newpath) != -1) { 
-          //Sort 
-          if (isFile(newpath) == 1) { //Files
+          //Сортировка 
+          if (isFile(newpath) == 1) { //Файлы
             files += static_cast<string>(newpath) + '\n';
           } else {
               folders += static_cast<string>(newpath) + '\n';
@@ -42,12 +42,12 @@ namespace FileOperations {
                 newpath = const_cast<char*>(p.c_str());
                 FileOP::searchDir(newpath, files, folders);
               };
-            }; //Folders
+            }; //Каталоги
         };
       }
       closedir (dir);
     } else {
-      /* could not open directory */
+      /* не удалось открыть каталог */
       files = "Could Not Open Dir\n" + static_cast<string>(path); 
       folders = "Could Not Open Dir\n" + static_cast<string>(path);
     }
@@ -65,28 +65,28 @@ namespace FileOperations {
 
   void FileOP::TXT::read(string path, string& data) {
     ifstream infile(path, ios::binary);
-    //get length of file:
+    //получить длину файла:
     infile.seekg (0, infile.end);
     int length = infile.tellg();
     infile.seekg (0, infile.beg);
 
-    //buffer for data
+    //буфер для хранения данных
     char * buffer = new char [length];
 
-    // read data as a block:
+    // считывание данных в виде блока:
     infile.read(buffer,length);
     data += buffer;
-    //Don't need this anymore sooo...
+    //Уроооо оно больше нинадааа
     delete[] buffer;
     infile.close();
   };
 
   void FileOP::TXT::write(string path, string data) {
-    //Original File
-    ofstream {path}; //Create... Doesn't matter if it's overwritten because it's about to be anyways
+    //Оригинальный файл
+    ofstream {path}; //Создание... Не имеет значения, будет ли он перезаписан, потому что это все равно произойдет
     ofstream outfile(path, ios::out | ios::trunc);
-    outfile << data; //write to file
-    outfile.close(); //close file
+    outfile << data; //запись в файл
+    outfile.close(); //закрытие файла
   };
 
   bool FileOP::mkFile(string path) {

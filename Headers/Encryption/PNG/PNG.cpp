@@ -5,40 +5,40 @@ namespace PNG_H {
   const string PNG::ID = ".png";
 
   bool PNG::read(string path, string& data) {
-    //Prepare data var to have the buffer applied to it
+    //Подготовка data var для того, чтобы к нему был применен буфер
     data.clear();
     data = "";
 
-    //Init file thing
+    //инициализация файла
     ifstream infile(path, std::ios::in | std::ios::binary | std::ios::ate);
     
-    //get length of file:
+    //получение длины файла:
     infile.seekg (0, infile.end);
     int length = infile.tellg();
     infile.seekg (0, infile.beg);
 
-    //buffer for data
+    //буфер для хранения данных
     char * buffer = new char [length];
 
-    // read data as a block:
+    // считывание данных в виде блока:
     infile.read(buffer,length);
 
-    //After read close
+    //После прочтения закройте
     infile.close();
     
-    //Assign it to the data var
+    //Присвоение его переменной данных
     for (int i=0; i<length; i++) {
       data += buffer[i];
     };
     
-    //Don't need this anymore sooo...
+    //смерт
     delete[] buffer;
     
     return true;
   };
 
   bool PNG::write(string path, string data) {
-    ofstream out(path); out << data; out.close(); //One line func lol
+    ofstream out(path); out << data; out.close(); //Функция в одну строку, лол
     return true;
   };
 };
