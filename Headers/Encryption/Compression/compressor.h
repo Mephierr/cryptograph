@@ -22,9 +22,9 @@ namespace COMPRESSION {
 
   class rgb_compression {
     public:
-    //Compress an RGB string.
+    //Сжатие строки RGB.
     static void compress(string &inp, char separator);
-    //Decompress a compressed RGB string
+    //Распаковка сжатой строки RGB
     static void decompress(string &inp, char separator);
 
     static void asgnPix(unsigned char* &pix, string str, char sep, size_t length);
