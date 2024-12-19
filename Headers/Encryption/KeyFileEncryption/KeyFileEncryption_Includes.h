@@ -9,13 +9,13 @@
 using namespace std;
 
 /*
-This header is for encrypting the keyfile of any encryted file. It uses a 
-ripoff RSA encryption style, using a custom random number generation method
-and only even numbers, it should be strong but it does use rand() and srand(),
-but the seeds for srand() and the times rand() is used is randomized so the 
-output should be unpredictable although consistant with the correct public key
-inserted. 
+Этот заголовок предназначен для шифрования ключевого файла любого зашифрованного файла. Он использует
+RSA-шифрование в стиле ripoff, используя пользовательский метод генерации случайных чисел
+и только четные числа, он должен быть надежным, но он использует rand() и srand(),
+но начальные значения для srand() и время использования rand() рандомизированы, поэтому
+выходные данные должны быть непредсказуемыми, хотя убедитесь, что вставлен правильный открытый ключ
+. 
 
-It is reccomended you set your own private key & entropy values, that way your private key & entropy isnt 
-publicly availible on github.
+Рекомендуется установить свои собственные значения закрытого ключа и энтропии, чтобы ваш закрытый ключ и энтропия не
+были общедоступны на гите.
 */
