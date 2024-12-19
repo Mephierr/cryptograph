@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.8) # Проверка версии CMake.
+cmake_minimum_required(VERSION 3.5) # Проверка версии CMake.
 
-project(CRYPTO)				# Название проекта
+project(cryptograph)
 
-set(SOURCE main.cpp Headers/BMP/BMP.cpp Headers/Compression/compressor.cpp Headers/FileOP/FileOP.cpp Headers/KeyFileEncryption/KeyFileEncryption.cpp Headers/PNG/PNG.cpp Headers/encryption.cpp)			# Установка переменной со списком исходников
-set(HEADERS Headers/Encryption/BMP/BMP_includes.h Headers/Encryption/BMP/BMP.h Headers/Compression/compression_includes.h Headers/Compression/compressor.h Headers/FileOP/FileOP_includes.h Headers/FileOP/FileOP.h Headers/KeyFileEncryption/KeyFileEncription_Includes.h Headers/KeyFileEncryption/KeyFileEncription.h Headers/PNG/PNG_Includes.h Headers/PNG/PNG.h)
-add_executable(main ${HEADERS} ${SOURCE})	# Создает исполняемый файл с именем main
+include_directories(Headers)
+
+add_executable(cryptograph main.cpp Headers/includes.h Headers/Encryption/Compression/compressor.h Headers/Encryption/Compression/compression_includes.h Headers/Encryption/Compression/compressor.cpp Headers/Encryption/encryption_includes.h Headers/Encryption/KeyFileEncryption/KeyFileEncryption_Includes.h Headers/Encryption/KeyFileEncryption/KeyFileEncryption.h Headers/Encryption/KeyFileEncryption/KeyFileEncryption.cpp Headers/Encryption/FileOP/FileOP.h Headers/Encryption/FileOP/FileOP_includes.h Headers/Encryption/FileOP/FileOP.cpp Headers/Encryption/encryption.h Headers/Encryption/BMP/BMP.cpp Headers/Encryption/BMP/BMP_includes.h Headers/Encryption/BMP/BMP.h Headers/Encryption/encryption.cpp Headers/Encryption/PNG/PNG.cpp Headers/Encryption/PNG/PNG.h Headers/Encryption/PNG/PNG_Includes.h)
