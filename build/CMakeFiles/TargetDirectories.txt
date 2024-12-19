@@ -1,3 +1,0 @@
-/home/mephi/Work/cryptograph/build/CMakeFiles/main.dir
-/home/mephi/Work/cryptograph/build/CMakeFiles/edit_cache.dir
-/home/mephi/Work/cryptograph/build/CMakeFiles/rebuild_cache.dir

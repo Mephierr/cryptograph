@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/P_UI.cpp.o CMakeFiles/main.dir/XOR.cpp.o -o main  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1 

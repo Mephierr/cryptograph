@@ -1,12 +1,8 @@
 cmake_minimum_required(VERSION 2.8) # Проверка версии CMake.
 
-project(cryptograph)				# Название проекта
+project(CRYPTO)				# Название проекта
 
-set(SOURCE_EXE main.cpp P_UI.cpp XOR.cpp)			# Установка переменной со списком исходников
-set(HEADERS XOR.hpp )
+set(SOURCE main.cpp Headers/BMP/BMP.cpp Headers/Compression/compressor.cpp Headers/FileOP/FileOP.cpp Headers/KeyFileEncryption/KeyFileEncryption.cpp Headers/PNG/PNG.cpp Headers/encryption.cpp)			# Установка переменной со списком исходников
+set(HEADERS)
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-
-add_executable(main ${HEADERS} ${SOURCE_EXE})	# Создает исполняемый файл с именем main
-
-target_link_libraries(main sfml-graphics sfml-window sfml-system)
+add_executable(main ${SOURCE})	# Создает исполняемый файл с именем main
